@@ -1,4 +1,4 @@
-# Python의 기본1
+# Python의 기본
 
 ## 1. print문과 변수개념
 
