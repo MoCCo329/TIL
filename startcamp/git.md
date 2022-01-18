@@ -154,8 +154,6 @@ $ git remote add origin https://github.com/username/repository.git
 
 ```bash
 $ git remote rm <원격저장소이름>
-
-$ git remote -v
 ```
 
 

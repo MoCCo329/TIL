@@ -103,6 +103,3 @@ import random 을 통해 random 모듈을 불러오고, random.choice, random.sa
   개발자들이 매번 변수이름을 짓는데 가장 고민이 깊다고 한다... [링크1](https://meetup.toast.com/posts/106) [링크2](https://blog.ull.im/engineering/2019/03/10/logs-on-git.html)
 
 - 오늘 배운 내용을 통해 파이썬 챗봇을 만들었다. 인사, 점심매뉴, 로또, 미세먼지
-
-
-
