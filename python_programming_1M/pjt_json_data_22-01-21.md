@@ -2,7 +2,7 @@
 
 JavaScript Object Notation으로 복잡하고 많은 자료를, 사람과 컴퓨터가 둘 다 잘 읽을 수 있는 중간단계 표현으로 이해했다.
 
-> 제대로 된 정의와 불러오기, 형식 바꾸기 등 추가 예정... pprint json .get 
+> 제대로 된 정의와 불러오기, 형식 바꾸기 등 추가 예정... pprint json load .get 
 
 
 

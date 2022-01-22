@@ -137,6 +137,6 @@ if 에서 continue와 break를 잘 사용해야겠다.
 ### 5. 기타
 
 - 변수명 i나 idx는 주로 range 에서, 실제 값을 나타내면 그 의미를 알 수 있도록 변수명을 짓자
-- str로 이루어진 리스트를 "사이글자".join으로 한 문자열로 만들 수 있다
+- str로 이루어진 리스트를 "구분자".join(리스트)으로 한 문자열로 만들 수 있다
 - list2 = list1.sort() 하면 None이 저장된다. List.sort()는 List를 정렬시키는 것. .sort(reverse=True)로 내림차순 가능, list2 = sorted(list1)로 list1의 변화없이 다른 변수에 저장 가능
 - 이외에 01-17, 01-18 과제를 풀었다.
