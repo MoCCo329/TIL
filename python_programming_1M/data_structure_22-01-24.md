@@ -122,25 +122,25 @@ d.update([other]) : 딕셔너리 d의 값을 매핑하여 업데이트
 
 ## 3. 에러
 
-- 
+- 디버깅 관점사항
 
-branches
+branches : 모든 조건을 커버하는가? (edge case)
 
-for loops
+for loops : 반복문이 원하는 횟수만큼 제대로 진행 되는가?
 
-while loops
+while loops : for문 내용 + 종료조건이 제대로 되었는가?
 
-function
+function : 호출이 제대로 됐는지, 파라미터를 제대로 넣었는지, 함수 결과가 제대로 나오는지
 
 - print 함수 활용, 개발 환경(text editor, IDE) 등에서 제공하는 기능 활용
 
-- Syntax Error
+- 문법 에러(Syntax Error)
 
 EOL(End of Line)
 
 EOF(End of File)
 
-- Exception
+- 예외(Exception)
 
 ZeroDivisionError : 0으로 나누고자 할 때 발생
 
@@ -164,11 +164,9 @@ IndentationError : 들여쓰기가 적절하지 않는 경우
 
 
 
-
-
-
-
 ## 4. 예외 처리
+
+- 예외처리
 
 ```python
 try:
@@ -180,7 +178,8 @@ except 예외그룹-2 as 변수-2:
 Finaly: #선택사항
     finally 명령문
 
-
+# ecept (예외그룹-1, 예외그룹-2): 처럼 여러개 넣을 수도 있다.
+# Finally 는 보통 파일을 열고 읽는 코드를 작성하는 경우 작성한다.
 ```
 
 예외없는 정상종료 : try - else - Finally
@@ -188,3 +187,7 @@ Finaly: #선택사항
 예외처리 할 경우 : try - except - Finally
 
 예외처리 하지 못한 경우 : 오류 메시지 출력
+
+- 예외 발생 시키기
+
+raise를 통해 일부러 에러를 발생시키는 것으로 보통 오픈소스개발에서 사용한다.(assert <표현식>, <메시지>로 예외 발생도 가능. 주로 디버깅 용도)
