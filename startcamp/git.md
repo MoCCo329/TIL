@@ -48,7 +48,7 @@ $ git commit -m 'First commit'
 
 ## 2. 버전 기록하기
 
-<img src="git.assets/image-20220113101851253.png" alt="image-20220113101851253" style="zoom: 50%;" />
+![화면 캡처 2022-01-27 033034](git.assets/화면 캡처 2022-01-27 033034-16432218519371.png)
 
 ### add
 
@@ -117,14 +117,16 @@ git log
   - staged : 커밋 되기 전 목록 (staging area)
   - commited : 커밋된 상태
 
+
+
+
+
 - 파일을 조작하는 방법 4가지
   - 생성 Create
   - ~~읽기 Read~~
   - 수정 Update
   - 삭제 Delete
-
 - 관리중인 파일의 이름이나 경로 바꿔도 되지만(상위폴더 변경사항은 저장X), 다른 깃 관리 폴더에 들어가면 곤란, 커밋된 변경사항은 파일이 지워져도 복원가능, but 커밋되지 않으면 불가능.
-
 - fetch vs pull
   - fetch : 받아오기만 한다
   - pull : fetch + merge
@@ -198,3 +200,4 @@ $ git config --global user.name "MoCCo329"
 
 
 mote
+

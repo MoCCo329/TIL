@@ -27,7 +27,7 @@
    **을 사용할 경우 dictionary로 받을 수 있다. f(a = 'apple', b = 'banana'). '='임에 주의하자. 또 key에 ''를 안쓰도록 한다.
 
 - 함수 내부범위의 local scope와 함수 밖의 global scope로 구분한다. 따라서 함수안에서의 변수를 함수 밖에서 호출할 수 없다.
-- bulit-in scope는 파이썬이 실행된 이후부터 유지, global scope는 모듈(해당 파이썬 파일)이 실행된 이후 부터 인터프리터가 끝날 때까지, local은 함수가 호출될 떄부터 함수가 종료될 떄까지 유지된다.
+- bulit-in scope는 파이썬이 실행된 이후부터 유지, global scope는 모듈(해당 파이썬 파일)이 실행된 이후 부터 인터프리터가 끝날 때까지, local은 함수가 호출될 떄부터 함수가 종료될 때까지 유지된다.
 - 변수나 함수 명이 동일할 시 LEGB (local -> enclosed -> global -> built-in) 순서대로 불러온다. global 키워드로 함수 밖 global 변수를 함수 안에서 쓸 수 있다. nonlocal 키워드는 해당 함수 밖의 스코프(해당 함수를 포함하는 함수)에 영향을 미치지만, global에 영향을 줄 순 없다.
 - 해당 스코프 안에 검색하는 변수명이 없을 경우 LEGB rule에 의해 검색을 하지만, 값을 바꿀 순 없다.
 
