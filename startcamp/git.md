@@ -71,17 +71,17 @@ git commit -m '커밋메시지'
 
 
 
-git init - git 이 작동하도록(?)
+git init : 해당 위치에서 git을 처음 실행
 
-git status - W.D 와 Stating area의 내용이 표시
+git status : W.D 와 Stating area의 내용이 표시
 
-git log - 커밋한 해쉬값, 작가, 날짜 등이 표시된다
+git log : 커밋한 해쉬값, 작가, 날짜 등이 표시된다
 
 git log --oneline : 커밋된 주소와 이름 나열
 
 git log -1 : log 의 첫번째 해쉬값, 작자, 날짜 등 정보를 보여준다.
 
-git commit --amend : 커밋한 것들을 바꿀 수 있다. (이름)
+git commit --amend : 최근 커밋한 것을 다시 현재상태로 커밋한다. -m '메시지' 를 추가해 커밋메시지를 바꿀 수 있다. 커밋 해시값이(SHA-1에 의해 만들어진) 달라진다
 
 
 
@@ -119,17 +119,23 @@ git log
 
 
 
-
+### 기타 내용
 
 - 파일을 조작하는 방법 4가지
+
   - 생성 Create
+
   - ~~읽기 Read~~
+
   - 수정 Update
+
   - 삭제 Delete
+
 - 관리중인 파일의 이름이나 경로 바꿔도 되지만(상위폴더 변경사항은 저장X), 다른 깃 관리 폴더에 들어가면 곤란, 커밋된 변경사항은 파일이 지워져도 복원가능, but 커밋되지 않으면 불가능.
+
 - fetch vs pull
-  - fetch : 받아오기만 한다
-  - pull : fetch + merge
+  - fetch : 받아오기만 하며, 로컬에 영향을 미치지 않는다.
+  - pull : fetch + merge 받아온 내용을 로컬에 병합한다.
 
 
 
@@ -199,5 +205,10 @@ $ git config --global user.name "MoCCo329"
 
 
 
-mote
 
+
+로컬 저장소와 원격 저장소의 커밋 히스토리가 달라 오류가 생기면(원격에서 커밋충돌시)
+
+git pull origin master를 하고 vs코드창이나 vim 이 뜨는데 이 창을 종류하면 커밋이 된다.(merge message)
+
+이후 다시 push한다. but 동일한 파일이 수정되었으면 충돌발생
