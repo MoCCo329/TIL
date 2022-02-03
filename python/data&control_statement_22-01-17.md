@@ -12,7 +12,7 @@
 
 - 두 값을 서로 바꿀 수 있다. y,  x = x, y (pythonic)
 
-- 변수 이름은 알파벳, 언더스코어, 숫자로 구성되지만 첫글자로 숫자 불가, 대소문자 구별, 몇 예약어(reserved words)는 변수명으로 사용 불가하다. 예를들면 False. None, and, as, assert, form, in , not, or, pass, try, class, lambda 등등 또 내장함수느 모듈 등의 이름으로도 만들지 않는것이 좋다. (Local Enclosed Global Built-in)
+- 변수 이름은 알파벳, 언더스코어, 숫자로 구성되지만 첫글자로 숫자 불가, 대소문자 구별, 몇 예약어(reserved words)는 변수명으로 사용 불가하다. 예를들면 False. None, and, as, assert, form, in , not, or, pass, try, class, lambda 등등 또 내장함수나 모듈 등의 이름으로도 만들지 않는것이 좋다. (Local Enclosed Global Built-in)
 
 
 
@@ -108,4 +108,3 @@
 
 - jupyter notebook에서 m은 markdown, y는 python코드입력, a와 b는 각각 위 아래에 칸 생성, dd는 칸 삭제,  in은 실행횟수 out은 마지막 줄을 표현해 준다.
 - 코드 스타일 가이드 PEP8을 따라 같은사람이 짠 코드처럼 통일성을 갖추는게 좋다.
-

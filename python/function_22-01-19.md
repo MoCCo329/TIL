@@ -6,8 +6,6 @@
 
 
 
-
-
 ### 2. 사용자 정의 함수
 
 - 함수는 def 키워드로 선언하며 호출은 함수명() 으로 호출한다.
@@ -45,7 +43,7 @@
 
 ### 4. 모듈
 
-- 라이브러리 > 패키지 > 모듈 
+- 라이브러리 > 패키지 > 모듈
 
 - *import* module / *from* module *import* var, function, class / *import* module *
 - *from* pacage *import* module / *from* package.modult *import* var, function, class
