@@ -80,7 +80,7 @@ s.update(t) : 셋 t에 있는 모든 항목 중  셋 s에 없는 항목을 추�
 
 s.clear() : 모든 항목을 제거
 
-s.isdisjoint(t) : 셋 s가 셋 t의 서로 같은 항목을 하나라도 갖고 있지 않은 경우, True반환
+s.isdisjoint(t) : 셋 s가 셋 t가 서로 공통 원소를 갖지 않는가?
 
 s.issubset(t) : 셋 s가 셋 t의 하위 셋인 경우, True 반환
 
