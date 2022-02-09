@@ -6,7 +6,7 @@ float속성의 값들을 right left
 
 겹치더라도 content는 옆으로 밀려나서 보인다.(?)
 
-float요소를 부모로 묶고 .clearfix(보통의 이름)
+float요소를 부모로 묶고 class="clearfix"(보통의 이름)
 
 .clearfix::after {
 
