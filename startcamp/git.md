@@ -205,8 +205,6 @@ $ git config --global user.name "MoCCo329"
 
 
 
-
-
 로컬 저장소와 원격 저장소의 커밋 히스토리가 달라 오류가 생기면(원격에서 커밋충돌시)
 
 git pull origin master를 하고 vs코드창이나 vim 이 뜨는데 이 창을 종류하면 커밋이 된다.(merge message)
