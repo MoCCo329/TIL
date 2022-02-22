@@ -8,4 +8,5 @@
 | string_prob  | string 실습 | 2022.02.17 | [링크](./string_prob_22-02-17.md)  |
 | prob_solving | 문제 풀이   | 2022.02.18 | [링크](./prob_solving_22-02-18.md) |
 | stack1       | stack1      | 2022.02.21 | [링크](./stack1_22-02-21.md)       |
+| stack1_prob  | stack1 실습 | 2022.02.22 | [링크](./stack1_prob_22-02-22.md)  |
 
