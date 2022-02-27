@@ -9,5 +9,7 @@
 | prob_solving | 문제 풀이   | 2022.02.18 | [링크](./prob_solving_22-02-18.md) |
 | stack1       | stack1      | 2022.02.21 | [링크](./stack1_22-02-21.md)       |
 | stack1_prob  | stack1 실습 | 2022.02.22 | [링크](./stack1_prob_22-02-22.md)  |
+| stack2       | stack2      | 2022.02.23 | [링크](./stack2_22-02-23.md)       |
+| stack2_prob  | stack2 실습 | 2022.02.24 | [링크](./stack2_prob_22-02-24.md)  |
 | queue        | queue       | 2022.02.25 | [링크](./queue_22-02-25.md)        |
 
