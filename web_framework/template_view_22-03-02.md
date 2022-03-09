@@ -112,48 +112,31 @@ templates 폴더는 직접만들어야 하며, 내부 html파일들을 만들어
 
 
 
-trailing comma
-
-urls.py에서 url처리
-
-```python
-from articles import views
-
-urlpatterns = [
-    path('index/', views.index) # index/ url요청이 들어오면, 뷰 파일의 index를 불러온다. 경로와 								함수명을 꼭 맞출 필요는 없다.
-]
-```
-
-
-
-views.py에서 함수정의
-
-```python
-from django.shortcuts import render
-
-def index(request): #함수의 첫 파라미터는 무조건 request로 한다.
-    return render(request, 'index.html') # render함수 결과를 반환한다. 두번째 파라미터로 템플릿을 											적는다.
-```
-
-
-
-
-
-
-
-
-
 ### 4. Django Template Language(DTL)
 
 - Django template에서 사용하는 built-in template system으로 html에서 사용한다.
-- 조건, 반복, 변수 치환, 필터 드의 기능을 제공하지만, python이 html에 포함된 것이 아니며 python 코드로 실행되는 것도 아니다.
+- 조건, 반복, 변수 치환, 필터 등의 기능을 제공하지만, python이 html에 포함된 것이 아니며 python 코드로 실행되는 것도 아니다.
 
 
 
 - Variable(변수)
 
 ```html
-{{ variable }}
+# views.py
+def index(request):
+	foods = ['apple', 'banana', 'coconut']
+	info = {
+		'name' = 'Alice'
+	}
+	context = {
+		'foods': foods,
+		'info': info
+	}
+	return render(request, 'index.html', context)
+
+# index.html
+<p>{{ info.name }}</p>
+<p>{{ foods.0 }}</p>
 ```
 
 render()를 사용하여 views.py에서 정의한 변수를 template파일로 넘겨 변수를 사용할 수 있다.
@@ -165,7 +148,64 @@ dot(.)을 사용하여 변수 속성에 접근할 수 있다. render의 세번�
 - Filters(필터)
 
 ```html
-{{ variable|filter }}
+{{ info.name|lower }}
 ```
 
 표시할 변수를 수정할 때 사용하며, 약 60여개의 built-in template filters가 존재한다. 일부 필터는 인자를 받기도 한다.
+
+
+
+- Tags(태그)
+
+```html
+{% for food in foods %}
+  {% if food|length > 5 %}
+	<p>이름이 너무 길어요</p>
+  {% else %}
+	{{ forloop.counter }}<li>{{ food }}</li>
+  {{ empty }}
+	<p>리스트가 비어있는 경우 동작</p>
+{% endfor %}
+
+
+# 장고 주석처리
+{% comment %}
+	여러줄
+{% endcomment %}
+
+{# 한줄주석 #}
+```
+
+출력 텍스트를 만들거나, 반복 또는 논리를 수행하여 제어 흐름을 만드는 등 변수보다 복잡한 일들을 수행하도록 한다. 일부 태그는 시작과 종료 태그가 필요하다. 약 24개의 built-in template tages가 존재한다.
+
+
+
+- Template inheritance(템플릿 상속)
+
+```html
+# 부모 html에서 자식html에서 따로 추가 작성할 부분에 책갈피처럼 block 태그를 넣는다.
+{% block blockname %}{% endblock %}
+
+# 자식 html에서 부모 템플릿을 확장한다는것을(상속) 최상단에 적는다.
+{% extends 'base.html' %}
+
+{% block blockname %}
+{% endblock blockname %}
+
+
+
+# 탬플릿 내에 다른 탬플릿을 포함(including)하는 방법
+{% include '_name.html' %} # include로 name.html 가져온다.
+```
+
+앱 밖의 templates에 base.html을 적으므로, settings.py의 TEMPLATES에 'DIRS': [BASE_DIR / 'templates',], 를 추가한다. 이는 파이썬에서 객체지향 경로를 지정할 때 쓰는 문법이다. BASE_DIR은 장고프로젝트를 시작할때의 디렉토리이며 이 디렉토리의 templates폴더를 추가한 것이다.
+
+include시 템플릿 명 앞에 언더바(_)를 붙이는 것은 단순히 include되는 템플릿이라는 것을 분류하기 위함이다.
+
+
+
+### 5. 기타
+
+- trailing comma는 urls.py에서 path를 적는등 리스트나 딕셔너리 등에서 다음에 올 문장을 위해 미리 콤마(,)를 찍어 놓는 것을 말한다.
+- url에선 언더바(_)를 권장하지 않는다.
+- Django에서 urls의 마지막에 '/'를 적어두는 것이 좋다. 그 이유는 주소를 불러와 계속해서 붙이는 식으로 urls이 생성될 수 있기 때문에 미리 '/'를 적어둔다.

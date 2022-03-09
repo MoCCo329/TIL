@@ -1,3 +1,38 @@
+## 장..고
+
+### 1. 장고 시작하기
+
+
+
+urls.py에서 url처리
+
+```python
+from articles import views
+
+urlpatterns = [
+    path('index/', views.index) # index/ url요청이 들어오면, 뷰 파일의 index를 불러온다. 경로와 								함수명을 꼭 맞출 필요는 없다.
+]
+```
+
+
+
+views.py에서 함수정의
+
+```python
+from django.shortcuts import render
+
+def index(request): #함수의 첫 파라미터는 무조건 request로 한다.
+    return render(request, 'index.html') # render함수 결과를 반환한다. 두번째 파라미터로 템플릿을 											적는다.
+```
+
+
+
+
+
+
+
+
+
 가상환경 생성 : python -m venv venv
 
 
