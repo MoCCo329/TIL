@@ -1,4 +1,4 @@
-## Django
+## Template, View
 
 ### 1. Django와 Web의 개념
 
@@ -51,7 +51,7 @@ pip install django==3.2.12
 3. 프로젝트 생성 및 설정
 
 ```bash
-django-admin startproject 프로젝트명 .
+django-admin startproject 프로젝트명 . # 뒤에 공백 점을 찍으면 manage.py가 프로젝트 밖에 설치된다.
 ```
 
 
@@ -208,4 +208,4 @@ include시 템플릿 명 앞에 언더바(_)를 붙이는 것은 단순히 inclu
 
 - trailing comma는 urls.py에서 path를 적는등 리스트나 딕셔너리 등에서 다음에 올 문장을 위해 미리 콤마(,)를 찍어 놓는 것을 말한다.
 - url에선 언더바(_)를 권장하지 않는다.
-- Django에서 urls의 마지막에 '/'를 적어두는 것이 좋다. 그 이유는 주소를 불러와 계속해서 붙이는 식으로 urls이 생성될 수 있기 때문에 미리 '/'를 적어둔다.
+- Django에서 urls의 마지막에 end slash('/')를 적어두는 것이 좋다. 그 이유는 주소를 불러와 계속해서 붙이는 식으로 urls이 생성될 수 있기 때문에 미리 '/'를 적어둔다.
