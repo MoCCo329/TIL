@@ -74,7 +74,7 @@ def catch(request):
     return render(request, 'catch.html', context)
 ```
 
-http 리퀘스트가 있을때 장고에서 request 객체를 만들게 되며, .GET을 하면 이 정보를 사전형의 데이터로 얻을 수 있게 된다. 다시 여기서 .get('key')를 통해 원하는 정보를 가져올 수 있다. key는 input에서 사용한 name이다.
+http 리퀘스트가 있을때 장고에서 request 객체를 만들게 되며, 이를 파라미터로 가져왔기 떄문에 .GET을 하면 이 정보를 사전형의 데이터로 얻을 수 있게 된다. 다시 여기서 .get('key')를 통해 원하는 정보를 가져올 수 있다. key는 input에서 사용한 name이다.
 
 
 
