@@ -18,7 +18,7 @@ def f(i, c, N, M):
             else:
                 ans[c] = j+1
                 chk_list[j] = True
-                f(j, c+1, N, M)
+                f(j+1, c+1, N, M)
                 chk_list[j] = False
 
 f(0, 0, N, M)
