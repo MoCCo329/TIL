@@ -1,18 +1,18 @@
-# def bfs(i, j, N):
-#     q = []
-#     q.append((i, j))
-#     v[i][j] = 1
-#     h = 0 # 단지에 속한 집의 수
-#
-#     while q:
-#         i, j = q.pop(0)
-#         h += 1
-#         for di, dj in [[0, 1], [1, 0], [0, -1], [-1, 0]]:
-#             ni, nj = i+di, j+dj
-#             if 0<=ni<N and 0<=nj<N and arr[ni][nj]==1 and v[ni][nj]==0:
-#                 q.append((ni, nj))
-#                 v[ni][nj] = 1
-#     return h
+def bfs(i, j, N):
+    q = []
+    q.append((i, j))
+    v[i][j] = 1
+    h = 0 # 단지에 속한 집의 수
+
+    while q:
+        i, j = q.pop(0)
+        h += 1
+        for di, dj in [[0, 1], [1, 0], [0, -1], [-1, 0]]:
+            ni, nj = i+di, j+dj
+            if 0<=ni<N and 0<=nj<N and arr[ni][nj]==1 and v[ni][nj]==0:
+                q.append((ni, nj))
+                v[ni][nj] = 1
+    return h
 
 def dfs(i, j, N):
     v[i][j] = 1

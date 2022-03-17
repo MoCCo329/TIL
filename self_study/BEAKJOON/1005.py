@@ -25,3 +25,5 @@ for tc in range(1, T+1):
     for K in K_list[F]:
         temp += build_times[K]
     print(temp)
+
+# 아직 못품
