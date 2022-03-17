@@ -14,5 +14,5 @@
 | queue         | queue       | 2022.02.25 | [링크](./queue_22-02-25.md)         |
 | prob_solving2 | 문제 풀이2  | 2022.02.28 | [링크](./prob_solving2_22-02-28.md) |
 | tree          | tree        | 2022.03.16 | [링크](./tree_22-03-16.md)          |
-| tree_prob     | tree 실습   | 2022.03.17 | [링크](./tree_prob_22-03-17.md)     |
+| tree_prob     | tree 실습.  | 2022.03.17 | [링크](./tree_prob_22-03-17.md)     |
 
