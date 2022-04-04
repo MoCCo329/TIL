@@ -55,10 +55,10 @@ def nCr(n, r, s, k):  # n개에서 r개를 고르는 조합, s는 선택할 수 
         print(*comb)
     else:
         for i in range(s, n-r+k+1):  # n-r+k가 선택할 수 있는 구간의 끝. n-r이 처음의 최댓값
-            comb[k] = A[i]  # r을 인덱스로 활용한다.
+            comb[k] = A[i]
             nCr(n, r, i+1, k+1)
 
-def nCr(n, r, s, k):  # k는 첫 r값
+def nCr(n, r, s, k):  # k는 원래 r값
     if r == 0:
         print(*comb)
     else:

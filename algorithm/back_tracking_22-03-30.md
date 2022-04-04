@@ -55,7 +55,7 @@ def partition(A, l, r):
     while i <= j:  # 교차하기 전까지(피봇을 기준으로 정렬되기 전까지)
         while i <= j and A[i] <= p:
             i += 1
-        while i <= j and A[j] <= p:
+        while i <= j and A[j] >= p:
             j -= 1
         if i < j:  # 중간에 종료된 경우
             A[i], A[j] = A[j], A[i]
@@ -65,7 +65,7 @@ def partition(A, l, r):
 - Lomuto partition 알고리즘
 
 ```python
-def partition(A, p, r):
+def partition(A, p, r):  # 리스트 A, 시작값 p, 끝 값 r
     x = A[r]  # 피봇값
     i = p - 1
     
