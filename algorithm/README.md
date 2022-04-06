@@ -26,4 +26,6 @@
 | back_tracking               | back tracking          | 2022.03.30 | [링크](./back_tracking_22-03-30.md)               |
 | back_tracking_prob          | back tracking 문제     | 2022.03.31 | [링크](./back_tracking_prob_22-03-31.md)          |
 | graph                       | graph                  | 2022.04.01 | [링크](./graph_22-04-01.md)                       |
+| prob_solving5               | 문제 풀이5             | 2022.04.04 | [링크](./prob_solving5_22-04-04.md)               |
+| graph_prob                  | graph 문제             | 2022.04.05 | [링크](./graph_prob_22-04-05.md)                  |
 
