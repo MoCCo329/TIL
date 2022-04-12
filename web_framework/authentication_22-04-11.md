@@ -64,7 +64,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_requried
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
-form django.contrib.auth.forms import AuthenticationsForm
+form django.contrib.auth.forms import AuthenticationsForm  # ModelForm이 아니다.
 from django.views.decorators.http import require_http_methods, require_POST
 
 
@@ -109,3 +109,119 @@ def logout(request):
   login_required : decorator이며 views.py에서 권한에 따라 엑셋를 제한하여 로그인 사용자만 로그아웃 가능하도록, 로그아웃된 사용자만 로그인창에 접근 가능하도록 할 수 있다.
 
   로그인이 안돼있으면 'account/login/'으로 redirect하며 여기서 로그인하면 원래 페이지로 접속되도록 한다.
+
+- @login_required 사용시 알아야 할 것들
+
+  로그인이 안되어있으면 로그인 창을 next와 함께 띄운다. 이 때 로그인 폼의 action에 다른 url이 적혀있다면, next가 실행되지 못하고 날라가 버리게 된다. 따라서 url을 비워 동일 url로 새로고침 되도록 하면 next를 request.GET.get('next')를 통해 사용할 수 있게된다.
+
+  redirect로 새로운 페이지를 불러올때 GET method를 이용하기 때문에 @require_POST()와 함께 사용하면 405 에러가 발생하게 된다. 이는 @login_required가 아닌 is_authenticated 속성값을 통해 해결할 수 있다.
+
+  ```python
+  @require_POST
+  def delete(request, pk):
+      if request.user.is_authenticated:
+          article = get_object_or_404(Article, pk=pk)
+          article.delete()
+      return redirect('articles:index')
+  ```
+
+  
+
+### 4. 회원가입, 회원탈퇴, 회원정보 수정, 비밀번호 변경
+
+- 회원가입 : UserCreationForm을 이용한다.
+
+```python
+from django.contrib.auth.forms import UserCreationForm  # ModelForm이다.
+
+def signup(request):
+	if request.user.is_authenticated:
+        return redirect('articles:index')
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            auth_login(request, user)
+            return redirect('articles:index')
+    else:
+        form = UserCreationForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'accounts/signup.html', context)
+```
+
+
+
+- 회원탈퇴 : request.user객체의 delete() 메서드를 이용한다.
+
+```python
+@require_POST
+def delete(request):
+    if request.user.is_authenticated:
+        request.user.delete()
+        auth_logout(request)  # 로그인 세션도 삭제할 수 있다. .delete()를 하면 request객체 정보가 								  사라지므로 위 명령과 순서가 바뀌면 안된다.
+    return redirect('articles:index')
+```
+
+
+
+- 회원정보 수정 : UserChangeForm을 이용하며 일반 사용자를 위해 form을 커스텀 해야한다.
+
+```python
+# forms.py
+
+from django.contrib.auth,forms import UserChangeForm
+from django.contrib.auth import get_user_model  # user class를 불러온다.
+
+class CustomUserChangeForm(UserChangeForm):
+    
+    class Meta:
+        model = get_user_model()
+        fields = ('email', 'first_name', 'last_name')
+```
+
+```python
+from .forms import CustomUserChangeForm
+
+@login_required
+@require_http_methods(['GET', 'POST'])
+def update(request):
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('articles:index')
+    else:
+        form = CustomUserChangeForm(instance=request.user)
+    context = {
+        'form': form,
+    }
+    return render(request, 'accounts/update.html')
+```
+
+
+
+- 비밀번호 변경 : PasswordChangeForm을 사용한다. session도 업데이트해주어야 로그인이 유지된다.
+
+```python
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+
+@login_required
+@require_http_methods(['GET', 'POST'])
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # 세션 업데이트
+            return redirect('articles:index')
+    else:
+		form = PasswordChangeForm(request.user)
+    context = {
+        'form': form
+    }
+    return render(request, 'accounts/change_password.html', context)
+```
+
