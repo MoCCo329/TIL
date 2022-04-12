@@ -65,10 +65,10 @@ from django.contrib.auth.decorators import login_requried
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 form django.contrib.auth.forms import AuthenticationsForm
-from django.view.decorators.http import require_http_methods, require_POST
+from django.views.decorators.http import require_http_methods, require_POST
 
-@login_required
-@require_http_methods(['GET', POSt])
+
+@require_http_methods(['GET', 'POST'])
 def login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)  # ModelForm이 아니라 Form의 상속
@@ -77,7 +77,10 @@ def login(request):
             return redirect('articles:index')
     else:
         form = AuthenticationForm()
-    return render(request, 'accounts/login.html')
+    context={
+        'form': form
+    }
+    return render(request, 'accounts/login.html', context)
 
 
 @login_required
