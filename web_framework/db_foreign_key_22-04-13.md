@@ -76,3 +76,198 @@ comment.article.content
 # 'content'
 ```
 
+
+
+### 4. 역참조
+
+- 1 -> N 방향으로 참조를 할 때는 article.comment 형태로 사용할 수 없고, article.comment_set 처럼 comment_set manager를 사용한다.
+
+```shell
+# 참조
+comment = Comment.objects.get(pk=1)
+# 역참조
+article.comment_set.all()
+# <QuerySet [<Comment: first comment>, <Comment: second comment>]>
+
+comments = article.comment_set.all()
+for comment in comments:
+	print(comment.content)
+# first comment
+# second comment
+```
+
+
+
+- model_set 이름 바꾸기 (권장되지 않는다.)
+
+```python
+class Comment(models.Model):
+    article = models.ForignKey(Article, on_delete=models.CASCADE, related_name='comments')
+
+# article.comment_set.all() -< article.comment.all()
+```
+
+
+
+### 5. 댓글 Create
+
+- CommentForm 작성
+
+```python
+# article/forms.py
+
+from .models import Article, Comment
+
+class CommentForm(forms.ModelForm):
+    
+    class Meta:
+        model = Comment
+        fields = '__all__'
+```
+
+- urls.py
+
+```python
+# articles/urls.py
+
+urlpatterns = [
+    path('<int:pk>/comments/', views.comment_create, name='comment_create')
+]
+```
+
+- views.py
+
+```python
+# aritcles/view.py
+
+from .forms import ArticleForm, CommentForm
+
+def detail(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    comment_form = CommentForm()
+    context = {
+        'article': article,
+        'comment_form': comment_form
+    }
+    return render(request, 'articles/detail.html', context)
+
+
+@require_POST
+def comment_create(request, pk):
+	if request.user.is_authenticated:
+        article = get_object_or_404(Article, pk=pk)
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)  # DB에 저장X, 인스턴스 생성만
+            comment.article = article
+            comment.save()
+	    return redirect('articles:detail', article.pk)
+    return redirect('accounts:login')
+```
+
+- CommentForm 출력
+
+```html
+<form action="{% url 'articles:comment_create' %}" methdo="POST">
+    {% csrf_token %}
+    {{ comment_form }}
+    <input type="submit">
+</form>
+```
+
+- 이 때 Comment는 내용 필드와 외래키 필드가 있어 외래키 필드도 같이 출력된다. 이를 막기 위해 fields = '\__all\_\_' -> fields = ('content',) 혹은 exclude = ('article',) 로 설정한다.
+
+
+
+### 6. 댓글 Read
+
+```python
+# aritcles/view.py
+
+@require_safe
+def detail(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    comment_form = CommentForm()
+    comments = article.comment_set.all()
+    context = {
+        'article': article,
+        'comment_form': comment_form,
+        'comments': comments
+    }
+    return render(request, 'articles/detail.html', context)
+```
+
+```html
+<h4>댓글 목록</h4>
+<ul>
+  {% for comment in comments %}
+    <li>{{ comment.content }}</li>
+</ul>
+```
+
+
+
+### 7. 댓글 Delete
+
+- urls.py
+
+```python
+urlpatterns = [
+    path('<int:article_pk>/comments/<int:comment_pk>/delete/', views.comment_delete, name='comment_delete'),
+]
+```
+
+- views.py
+
+```python
+# variable routing 으로 comment_pk를 받는 방법
+
+@require_POST
+def comments_delete(request, article_pk, comments_pk):
+    if request.user.is_authenticated:
+        comment = get_object_or_404(Comment, pk=comment_pk)
+	    comment.delete()
+	return redirect('articles:detail', article_pk)
+```
+
+- detail.html
+
+```html
+<h4>댓글 목록</h4>
+<ul>
+  {% for comment in comments %}
+    <li>
+      {{ comment.content }}
+      <form action="{% url 'articles:comment_delete' article.pk comment.pk %}" mehtod="POST">
+        {% csrf_token %}
+        <input type='submit' value="삭제">
+      </form>
+    </li>
+</ul>
+```
+
+
+
+### 8. 참고
+
+- 댓글 개수 출력하기
+
+```html
+# 1. {{ comments|length }}
+# 2. {{ article.comment_set.all|length }}
+# 3. {{ comments.count }}
+```
+
+- 댓글이 없는 경우 대체 컨텐츠 출력 (DTL의 for-empty 태그 활용)
+
+```html
+{% for comment in comments %}
+  ...
+{% empty %}
+  <p>댓글이 없습니다.</p>
+{% endfor %}
+```
+
+
+
+### 9. 
