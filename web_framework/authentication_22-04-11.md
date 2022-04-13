@@ -166,7 +166,7 @@ def delete(request):
 
 
 
-- 회원정보 수정 : UserChangeForm을 이용하며 일반 사용자를 위해 form을 커스텀 해야한다.
+- 회원정보 수정 : UserChangeForm을 이용하며, 일반 사용자를 위해 form을 커스텀 해야한다.
 
 ```python
 # forms.py
