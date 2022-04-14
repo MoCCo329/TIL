@@ -104,7 +104,7 @@ for comment in comments:
 class Comment(models.Model):
     article = models.ForignKey(Article, on_delete=models.CASCADE, related_name='comments')
 
-# article.comment_set.all() -< article.comment.all()
+# article.comment_set.all() -> article.comment.all()
 ```
 
 
@@ -270,4 +270,97 @@ def comments_delete(request, article_pk, comments_pk):
 
 
 
-### 9. 
+### 9. User model 대체하기
+
+- Django 내장 User 모델이 제공하는 인증 요구사항이 적절하지 않을 수 있기 때문에 이를 커스텀 해야한다.
+- AUTH_USER_MODEL : User를 나타내는데 사용하는 모델로 기본은 auth앱의 User모델로 설정되어있다. 프로젝트 중간에 변경하기 힘들기 때문에 첫 migration 전에 꼭 설정해놓아야 한다.
+
+- 대체 방법은 아래와 같다.
+
+1. 기본 User 모델을 구현하는 클래스인 AbstractUser 를 상속받아 새로운 User 모델을 작성 하는것이다. (프로젝트 중간에 진행한다면 db.sqlite3 파일과 migrations 파일을 모두 삭제하고 다시 설정해야한다.)
+
+```python
+# accounts/models.py
+
+from django.contrib.auth.models import AbstractUser
+
+class User(AbstractUser):
+    pass
+```
+
+   		  2. 이후 settings.py의 AUTH_USER_MODEL = 'accounts.User'로 변경해준다.
+   		  3. admin사이트에서 사용자 관리창이 없어지기 때문에 admin.py를 재설정해준다. (django authenticatie custom 문서 참고)
+
+```python
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from .models import User
+
+admin.site.register(User, UserAdmin)
+```
+
+
+
+- UserCreationForm과 UserChangeForm은 기존 auth.user 모델을 사용하는 ModelForm이기 때문에 커스텀 User 모델로 대체해야 한다.
+
+```python
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm
+from django.contrib.auth import get_user_model
+
+
+class CustomUserCreationForm(UserCreationForm):
+    
+    class Meta:
+        model = get_user_model()
+    # class Meta(UserCreationForm Meta):  Meta 클래스의 상속을 이용 할 수도 있다
+	    # model = CustomUser
+        # fields = UserCreationForm.Meta.fields + ('custom_field',)
+
+
+class CustomUserChangeForm(UserChangeForm):
+    
+    class Meta:
+        model = get_user_model()
+        fields = ('email', 'first_name', 'last_name',)
+```
+
+- get_user_model()은 프로젝트에서 현재 활성화된 사용자 모델을 반환한다. 따라서 User클래스를 직접 참조하는 대신 django.contrib.auth.get_user_model()을 사용해 참조하는것이 유지보수에 바람직하다.
+
+
+
+### 10. 1:N 설정
+
+- django가 처음 가동될 때 INSTALLED_APP에서 순차적으로 앱을 import하고, 앱들의 models를 순차적으로 import한다. 따라서 먼저 읽히는 models에서 나중에 읽히는 model을 참조한다면 문제가 발생한다. 그렇기 때문에 models.py에서는 get_user_model() 함수가 아닌 settings.AUTH_USER_MODEL 문자열로 참조하여 문제를 피한다.
+
+```python
+# models.py
+
+class Article(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+```
+
+- 외래 키가 생기면 form에서 외래 키가 선택되지 않도록 설정해 주어야 한다.
+
+```python
+# forms.py
+
+class ArticleForm(forms.ModelForm):
+    
+    class Meta:
+        model = Article
+        exclude = ('user',)
+```
+
+```python
+# views.py
+
+def create(request):
+    if request.method == 'POST'
+    form = ArticleForm(request.POST)
+    if form.is_valid():
+        article = form.save(commit=False)
+        article.user = request.user  # form에서 user정보를 받지 않기 때문에 업데이트 필요
+        article.save()
+        ...
+```
+
