@@ -288,8 +288,10 @@ class User(AbstractUser):
     pass
 ```
 
-   		  2. 이후 settings.py의 AUTH_USER_MODEL = 'accounts.User'로 변경해준다.
-   		  3. admin사이트에서 사용자 관리창이 없어지기 때문에 admin.py를 재설정해준다. (django authenticatie custom 문서 참고)
+
+
+2. 이후 settings.py의 AUTH_USER_MODEL = 'accounts.User'로 변경해준다.
+3. admin사이트에서 사용자 관리창이 없어지기 때문에 admin.py를 재설정해준다. (django authenticatie custom 문서 참고)
 
 ```python
 from django.contrib import admin
