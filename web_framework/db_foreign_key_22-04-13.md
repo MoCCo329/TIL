@@ -104,7 +104,7 @@ for comment in comments:
 class Comment(models.Model):
     article = models.ForignKey(Article, on_delete=models.CASCADE, related_name='comments')
 
-# article.comment_set.all() -> article.comment.all()
+# article.comment_set.all() -> article.comments.all()
 ```
 
 

@@ -8,8 +8,7 @@
 | pjt05          | git branch개념, 장고를 활용한 영화 정보 게시판 만들기        | 2022.03.11 | [링크](./pjt05_22-03-11.md)         |
 | db_sql         | DB와 SQL문                                                   | 2022.03.14 | [링크](./db_sql_22-03-14.md)        |
 | form           | form class 이용                                              | 2022.04.06 | [링크](./form_22-04-06.md)          |
-| pjt06          | HTTP requests, Media files, form을 활용한 영화 게시판 만들기 | 2022.04.08 | [링크](./pjt06_22-04-08.md)         |
+| pjt06          | HTTP requests, Media filesd, form을 활용한 영화 게시판 만들기 | 2022.04.08 | [링크](./pjt06_22-04-08.md)         |
 | authentication | 쿠키와 세션, 로그인, 회원가입                                | 2022.04.11 | [링크](authentication_22-04-11.md)  |
 | db_foreign_key | 외래키와 1:N 설정, model customizing                         | 2022.04.13 | [링크](db_foreign_key_22-04-13.md)  |
-| pjt07          |                                                              | 2022.04.15 | [링크](./pjt07_22-04-15.md)         |
-
+| pjt07          | git workflow, 회원과 댓글이 있는 영화 게시판 만들기          | 2022.04.15 | [링크](./pjt07_22-04-15.md)         |

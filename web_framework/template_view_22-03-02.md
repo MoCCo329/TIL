@@ -16,7 +16,14 @@
 ### 2. Framework Architecture
 
 - MVC Design Pattern(model-view-controller)는 소프트웨어 공학에서 사용되는 디자인 패턴 중 하나로 인터페이스와 프로그램 로직을 분리해 시각적 요소와 이면의 실행되는 부분을 서로 영향 없이 쉽게 고칠 수 있다.
-- Django는 MVC보다 좀 더 잘 맞는 MTV(model-template-view) Pattern이라 한다. Model은 데이터 구조를 정의하고 DB의 기록을 관리한다(추가, 수정, 삭제), Template(view)는 파일의 구조나 레이아웃을 정의, View(controller)는 HTTP요청을 수신하고 응답을 반환. Model을 통해 요청을 충족시키는데 필요한 데이터에 접근하고 Template에게 응답의 서식 설정을 맡긴다.
+
+- Django는 MVC보다 좀 더 잘 맞는 MTV(model-template-view) Pattern이라 한다.
+
+  Model은 데이터 구조를 정의하고 DB의 기록을 관리한다(추가, 수정, 삭제)
+
+  Template(view)는 파일의 구조나 레이아웃을 정의
+
+  View(controller)는 HTTP요청을 수신하고 Model을 통해 요청을 충족시키는데 필요한 데이터에 접근한 뒤 Template에게 응답의 서식 설정을 맡긴다.
 
 
 
