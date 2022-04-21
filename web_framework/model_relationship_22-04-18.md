@@ -89,7 +89,7 @@ class Reservation(models.Model):
 
 
 
-### 3. like 기능 구현하기
+### 3. like 기능 구현
 
 - articles 앱의 Article 테이블과 accounts 앱의 User 테이블의 M:N관계이다.
 

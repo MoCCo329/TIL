@@ -55,10 +55,360 @@
 
 - REST(REpresentational State Transfer)는 API서버를 개발하기 위한 설계 방법론이다. 네트워크 상에서 자원을 정의하고, 자원에 대한 주소를 지정하는 전반적인 방법이다. REST를 따르는 시스템을 RESTful이라 한다.
 
-  자원은 URI로, 행위는 HTTP Method(GET, HOST, PUT, DELETE)로, 표현은 JSON으로 한다.
+  자원은 URI로 /  행위는 HTTP Method(GET, HOST, PUT, DELETE)로 / 표현은 JSON으로 한다.
 
 - JSON은 JavaScript의 표기법을 따르는 단순 문자열이다. 가볍고 사람이 읽고 쓰기 쉬우며 기계가 파싱(해석, 분석)하고 만들기에도 쉽다.
 
 
 
-0421에 정리예정
+### 3. Response
+
+- JsonResponse 객체를 활용한 JSON 데이터 응답 방법들
+
+```python
+# 1. 데이터를 직접 JSON형태로 정제해서 주는 방법. JsonResponse 객체는 JSON 데이터로 인코딩하여 보낸다.
+
+from django.http.response import JsonResponse
+
+def article_json_1(request):
+    articles = Article.objects.all()
+    articles_json = []
+    
+    for article in articles:
+        articles_json.append(
+        	{
+                'id': article.pk,
+                'title': article.title,
+                'content': article.content,
+                'created_at': article.created_at,
+                'updated_at': article.updated_at.                
+            }
+        )
+    return JsonResponser(articles_json, safe=False)  # 딕셔너리 형태가 아니라면 safe=False로
+
+
+# 응답 형식
+[
+    {
+        'title': title1,
+        'content': content1,
+        'created_at': created_at1
+        'updated_at': updated_at1
+    },
+    {
+        ...
+    }
+]
+```
+
+```python
+# 2. 데이터를 serialize 과정을 거쳐 application/json형태로 HttpResponse를 통해 응답한다.
+
+from django.http.response import HttpResponse
+from django.core import serializers
+
+def article_json_2(request):
+    article = Article.objects.all()
+    data = serializers.serialize('json', articles)
+    return HttpResponse(data, content_type='application/json')
+# content_type은 데이터의 media type을 클라이언트에게 알려주는 header 정보이다.
+
+
+# 응답 형식
+[
+    {
+        'model': 'articles.article',
+        'pk': 1,
+        'fields': {
+            'title': title1,
+            'content': content1,
+            'created_at': created_at1
+            'updated_at': updated_at1
+        }
+    },
+    {
+        ...
+    }
+]
+```
+
+```python
+# 3. Django REST framework(DRF) 라이브러리를 사용해 응답을 한다. djangorestframework를 설치하고, 'rest_framework'를 등록해야 한다.
+
+# serializers.py
+from rest_framework import serializers
+from .models. import Article
+
+class ArticleSerializer(serializers.ModelSerializer):
+    
+    class Meat:
+        model = Article
+        firelds = '__all__'
+        
+
+# views.py
+from .serializers import ArticleSerializer
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
+@api_view()  # GET 메서드만 허용
+def article_json_3(request):
+    articles = Article.objects.all()
+    serializer = ArticleSerializer(articles, many=True)  # 단일객체가 아닐때 many=True
+    return Response(serializer.data)
+
+
+# 응답 형식
+HTTP 200 OK
+Allow: OPTIONS, GET
+Content-Type: application/json
+Vary: Accept
+
+[
+    {
+        'id': 1,
+        'title': title1,
+        'content': content1,
+        '...'
+    },
+]
+```
+
+
+
+- Serialization(직렬화) : 데이터 구조나 객체 상태를 저장하고, 나중에 재구성할 수 있는 포맷으로 변환하는 과정. 장고에서 직렬화는 QuerySet 및 Model Instance와 같은 복잡한 데이터를 JSON, XML 등의 유형으로 변환하기 용이한 Python 데이터 타입으로 만들어 준다.
+- api_view decorator : default는 GET 메서드만 허용되며 다른 요청에는 405 Method Not Allowed를 표시. DRF에서 필수로 작성해야 view함수가 정상적으로 작동한다.
+
+
+
+### 4. Single Model 예시 - articles
+
+- serializers.py
+
+```python
+from rest_framework import serializers
+from .models import Article
+
+class ArticleListSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Article
+        fields = ('id', 'title',)
+
+
+class ArticleSerializer(serializer.ModelSerializer):  # 모든 필드를 보여주기 위해 나눈다.
+    
+    class Meta:
+        model = Article
+        fields = '__all__'
+```
+
+- urls.py
+
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('article/', views.article_list),
+    path('article/<int:article_pk>', views.article_detail),
+]
+```
+
+- views.py
+
+```python
+from rest_framework import status
+from rest_framework.response import Response
+from .serializers import ArticleListSerializer, ArticleSerializer
+from django.shortcuts import get_list_or_404
+from .models import Article
+
+@api_view(['GET', 'POST',])
+def article_list(requset):  # 클라이언트가 뷰함수 이름을 참조하여 페이지 제목을 자동 생성한다.
+    articles = get_list_or_404(Article)
+    
+    if request.method == 'GET':
+        serializer = ArticleListSerializer(article, many=True)
+        retirn Response(serializer.data)
+    
+    elif request.method == 'POST':
+        serializer = ArticleSerializer(data=request.data)  # 첫번째 인자는 instance이다.
+        if serializer.is_valid(raise_exception=True):  # 잘못되면 400 에러를 리턴한다.
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'DELETE', 'PUT',])
+def article_detail(request, article_pk):
+    article = get_object_or_404(Article, pk=article_pk)
+    
+    if request.method == 'GET':
+        serializer = ArticleSerializer(article)
+        return Response(serializer.data)
+
+	elif request.method == 'DELETE':
+        article.delete()
+        data = {
+            'delete': f'데이터 {article_pk}번이 삭제되었습니다.',
+        }
+       	return Response(data, status=status.HTTP_204_NO_CONTENT)
+    
+    elif request.method == 'PUT':
+        serializer = ArticleSerializer(article, request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializser.data)
+```
+
+
+
+- Status Code in DRF : DRF에는 status code를 쉽게 사용하도록 status 모듈에서 HTTP status code 집합을 제공한다.
+
+- raise_exception : is_valid() 메서드의 파라미터로 true 인 경우 유효성 검사 실패시 400 오류를 반환한다.
+
+
+
+
+
+### 5. 1:N Relation 예시 - comments
+
+- models.py
+
+```python
+from django.db import models
+
+class Article(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    created_at = models.DatetimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)                                
+    
+
+class Comment(models.Model):
+    atricle = models.ForeignKey(Article, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+```
+
+- serializers.py
+
+```python
+from rest_framework import serializers
+from .models import Comment
+
+class ArticleListSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Article
+        fields = ('id', 'title',)
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Comment
+        fields = '__all__'
+        read_only_fields = ('article',)  # 읽기 전용 필드 등록
+```
+
+- urls.py
+
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('article/', views.article_list),
+    path('article/<int:article_pk>', views.article_detail),
+    path('article/<int:article_pk>/comments/', views.comment_create),
+    path('comments/', views.comment_list),
+    path('comments/<int:comment_pk>/', views.comment_detail),
+]
+```
+
+- views.py
+
+```python
+from .serializers import Comment
+from .models import Comment
+
+...
+
+@api_view(['GET'])
+def comment_list(request):
+    comment = get_list_or_404(Comment)
+    serializer = CommentSerializer(comments, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def comment_detail(request, comment_pk):
+    comment = get_object_or_404(Comment, pk=comment_pk)
+    
+    if request.method == 'GET':
+        serializer = CommentSerializer(comment)
+        return Response(serializer.data)
+    
+    elif request.method == 'DELETE':
+        comment.delete()
+        data = {
+            'delete': f'댓글 {comment_pk}번이 삭제되었습니다.'
+        }
+        return Response(data, status=stauts.HTTP_204_NO_CONTENT)
+    
+    elif request.method == 'PUT':
+        serializer = CommentSerializer(comment, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+
+
+@api_view(['POST'])
+def comment_create(request, article_pk):
+    article = get_object_or_404(Article, pk=article_pk)
+    serializer = CommentSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(article=article)  # request.data로 받지 않는 데이터(article) 넣기
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+```
+
+
+
+- Read Only Field(읽기 전용 필드) : is_valid를 통과할 때 모든 데이터가 포함되지 않으면 통과되지 않는다. 읽기 전용 필드로 만들면 유효성검사를 통과 가능하고 직렬화 하지 않으며, 반환값에는 해당 필드가 포함되도록 할 수 있다.
+
+- 특정 게시글에 작성된 댓글 목록 출력하기
+
+  Serializer는 기존 필드를 override 하거나 추가 필드를 구성할 수 있다.
+
+  1. PrimaryKeyRelatedField를 이용하는 경우
+
+  ```python
+  # serializers.py
+  
+  class ArticleSerialiser(serializers.ModelSerializer):
+      comment_set = serializer.PrimaryKeyRelatedField(many=True, read_only=True)
+      # 기존 field에 포함되지 않는 override하는 필드는 Meta에서 read_only를 설정하지 않고, 파라미	터로 설정한다.
+      
+      class Meta:
+          model = Article
+          fields = '__all__'
+  ```
+
+  2. , Nested(중첩) relationships를 이용하는 경우
+
+  ```python
+  # serializers.py
+  
+  class ArticleSerialiser(serializers.ModelSerializer):
+      comment_set = CommentSerializer(many=True, read_only=True)
+      # 본인을 호출하는 대상의 Serializer를 호출한다. 이 때 가져오는 대상의 필드는 그 대상의 		Serializer 함수에서 설정한다.
+      
+      class Meta:
+          model = Article
+          fields = '__all__'
+  ```
+
+- 특정 게시글에 작성된 댓글의 개수 구하기
