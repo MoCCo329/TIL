@@ -390,7 +390,7 @@ def comment_create(request, article_pk):
   
   class ArticleSerialiser(serializers.ModelSerializer):
       comment_set = serializer.PrimaryKeyRelatedField(many=True, read_only=True)
-      # 기존 field에 포함되지 않는 override하는 필드는 Meta에서 read_only를 설정하지 않고, 파라미	터로 설정한다.
+      # override하는 필드는 Meta에서 read_only를 설정하지 않고, 파라미터로 설정한다.
       
       class Meta:
           model = Article
@@ -412,3 +412,20 @@ def comment_create(request, article_pk):
   ```
 
 - 특정 게시글에 작성된 댓글의 개수 구하기
+
+  serializers 필드에서 'source' arguments를 이용해 새로운 필드를 만들 수 있다.
+
+  ```python
+  # serializers.py
+  
+  class ArticleSerialiser(serializers.ModelSerializer):
+      comment_set = CommentSerializer(many=True, read_only=True)
+      comment_count = serializers.IntegerField(source='comment_set.count', 								read_only=True)
+      # comment_set이라는 필드에서 .(dot)을 통해 전체 댓글의 개수를 확인한다. 이 때 .count()는 	built-in Queryset API 중 하나이다.
+      
+      class Meta:
+          model = Article
+          fields = '__all__'
+  ```
+
+  
