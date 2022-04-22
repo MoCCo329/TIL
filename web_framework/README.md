@@ -12,4 +12,6 @@
 | authentication     | 쿠키와 세션, 로그인, 회원가입                                | 2022.04.11 | [링크](authentication_22-04-11.md)       |
 | db_foreign_key     | 외래키와 1:N 설정, model customizing                         | 2022.04.13 | [링크](db_foreign_key_22-04-13.md)       |
 | pjt07              | git workflow, 회원과 댓글이 있는 영화 게시판 만들기          | 2022.04.15 | [링크](./pjt07_22-04-15.md)              |
-| model_relationship | M:N 설정, 좋아요와 팔로우 구현                               | 2022.04.19 | [링크](./model_relationship_22-04-18.md) |
+| model_relationship | M:N 설정, 좋아요와 팔로우 구현                               | 2022.04.18 | [링크](./model_relationship_22-04-18.md) |
+| rest_api           | rest API개념과 single model, 1:N API 구현                    | 2022.04.20 | [링크](./rest_api_22-04-20.md)           |
+| pjt08              | M:N API 구현, 쿼리셋 최적화, 영화정보 REST API 만들기        | 2022.04.22 | [링크](./pjt08_22-04-22.md)              |
