@@ -91,9 +91,9 @@ class Reservation(models.Model):
 
 ### 3. like 기능 구현
 
-- articles 앱의 Article 테이블과 accounts 앱의 User 테이블의 M:N관계이다.
+- articles 앱의 Article 테이블과 accounts 앱의 User 테이블은 M:N관계이다.
 
-- User 테이블과 Article 테이블은 1:N관계로 묶여있으므로 related manager 명칭에 충돌이 일어난다.
+- 또한 User 테이블과 Article 테이블은 1:N관계로 묶여있으므로 related manager 명칭에 충돌이 일어난다.
 
   때문에 related_name을 필수로 설정 해줘야 한다.
 
