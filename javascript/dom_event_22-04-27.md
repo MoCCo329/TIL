@@ -126,7 +126,3 @@ target.addEventListener(type, listener[, options])  // 익명함수 말고 기�
 - preventDefault() : Event 취소. 현재 이벤트의 기본 동작을 중단한다.
 
   check box의 경우 클릭이 
-
-
-
-5/1에 정리 예정
