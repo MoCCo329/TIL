@@ -95,7 +95,7 @@ parent.append(child)  // 다시 붙이기
 
 
 
-setAttribute('class', 'ssafy-location') : 'ssfay-location'이라는 class 추가하기. 수정도 가능하다.
+setAttribute('class', 'ssafy-location') : class를 'ssfay-location'로 바꾸기. class 가 없는경우 추가
 
 classList = ['ssafy-location', 'hello', 'world'] : 해당 요소의 class를 지정. push, add로 추가도 가능하다.
 
@@ -126,3 +126,4 @@ target.addEventListener(type, listener[, options])  // 익명함수 말고 기�
 - preventDefault() : Event 취소. 현재 이벤트의 기본 동작을 중단한다.
 
   check box의 경우 클릭이 
+

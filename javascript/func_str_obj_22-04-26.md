@@ -37,8 +37,6 @@ const arrow = (name) => { return `hello, ${name}` }
 const arrow = name => `hello, ${name}`
 ```
 
-
-
 - IIFE(Immediately Invokable Function Expression) : 함수를 정의와 함께 바로 실행하는 함수 표현식이다.
 
 ```javascript
@@ -69,6 +67,8 @@ string.trim() : 문자열 시작과 끝의 공백문자(스페이스, 탭, 엔�
 
 - 배열은 객체(object)타입이며 키와 속성을 담고 있다. 순서를 보장하며 인덱스로 접근 가능하다. 음의 정수는 접근 불가하기 때문에 array[array.length - 1] 과 같은 방식을 사용해야 한다.
 - 배열의 주요 메서드는 다음과 같다.
+
+arr.reverse() : 배열의 순서를 거꾸로 바꾼다.
 
 arr.push(value) : 배열의 가장 뒤에 요소를 추가한다.
 
