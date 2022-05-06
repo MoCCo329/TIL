@@ -5,6 +5,6 @@
 | html_css   | HTML/CSS                   | 2022.02.03~2022.02.08 | [링크](./html_css)   |
 | algorithm  | algorithm 개념 및 문제풀이 | 2022.02.09~2022.04.05 | [링크](./algorithm)  |
 | django     | Django framework           | 2022.03.02~2022.04.22 | [링크](./django)     |
-| javascript | JavaScript                 | 2022.04.25~2022.05.03 | [링크](./javascript) |
+| javascript | JavaScript                 | 2022.04.25~2022.05.06 | [링크](./javascript) |
 | vue        | Vue                        | 2022.05.04~           | [링크](./vue)        |
 
