@@ -113,7 +113,7 @@ arr.reduce(callback(acc, element, [index[, array]]) [, initialValue])
 find : 반환값이 참인 첫 요소를 반환한다. 찾는 값이 없으면 undefined를 반환한다.
 
 ```javascript
-arr.fin(callback(element[, index[, array]]))
+arr.find(callback(element[, index[, array]]))
 ```
 
 some : 배열 요소 중 하나라도 주어진 판별함수를 통과하면 참을 반환한다.

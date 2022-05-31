@@ -165,7 +165,7 @@
      ```html
      <img v-bind:src="imageSrc">
      <div :class="{ active: isRed }"></div>
-     <p :style="{ fontSize: fontSize + 'px' }"  <!-- key + 'px' -->
+     <p :style="{ fontSize: fontSize + 'px' }"
      ```
 
   8. v-model : HTML form 요소의 값과 data를 양방향 바인딩 한다. .lazy(input 대신 change 이벤트 이후에 동기화), .number(문자열을 숫자로 변경), .trim(입력에 대해 trim을 진행) 등의 수식어가 존재한다.
