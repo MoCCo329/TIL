@@ -150,3 +150,4 @@ target.addEventListener(type, listener[, options])  // 익명함수 말고 기�
 
   check box의 경우 클릭이 
 
+asdasdf
