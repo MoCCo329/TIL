@@ -124,7 +124,6 @@
   header.getAttribute('id')
   ```
 
-  
 
 
 
@@ -137,17 +136,51 @@
 
 
 
-addEventListener() : 지정한 이벤트가 대상에 전달될 때마다 호출할 함수를 설정한다.
+- addEventListener() : 지정한 이벤트가 대상에 전달될 때마다 호출할 함수를 설정한다.
 
-```javascript
-// 타겟에 특정 타입의 이벤트가 생길 때 실행할 동작을 함수로 명세. 함수 실행값이 아닌 함수가 들어가야 한다.
-target.addEventListener(type, listener[, options])  // 익명함수 말고 기명함수도 가능
-```
+  ```html
+  // 타겟에 특정 타입의 이벤트가 생길 때 실행할 동작을 함수로 명세.
+  // 함수 실행값이 아닌 함수가 들어가야 한다.
+  target.addEventListener(type, listener[, options])  // 익명함수 말고 기명함수도 가능
+  
+  
+  <h2>change my color</h2>
+  <label for="change-color-input">원하는 색상을 입력하세요.</label>
+  <input id="change-color-input"></input>
+  
+  <script>
+    const colorInput = document.querySelector('#change-color-input')
+    const changeColor = function (evnet) {
+      const h2Tag = document.querySelector('h2')
+      h2Tag.style.color = event.target.value
+    }
+    colorInput.addEventListener('input', changeColor)
+  </script>
+  ```
 
 
 
 - preventDefault() : Event 취소. 현재 이벤트의 기본 동작을 중단한다.
 
-  check box의 경우 클릭이 
+  ```html
+  <input typoe="checkbox" id="my-checkbox">
+  <form action="/articles/" id="my-form">
+    <input type="text">
+    <input type="submit" value="제출">
+  </form>
+      
+  <script>
+    const checkBox = document.querySelector('#my-checkbox')
+  
+    checkBox.addEventListener('click', function (event) {
+      event.preventDefault()
+    })
+  
+    const formTag = document.querySelector('#my-form')
+    
+    formTag.addEventListener('submit', function (event) {
+      event.preventDefault()
+    })
+  </script>
+  ```
 
-asdasdf
