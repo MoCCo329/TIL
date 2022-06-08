@@ -15,3 +15,4 @@
 | model_relationship | M:N 설정, 좋아요와 팔로우 구현                               | 2022.04.18 | [링크](./model_relationship_22-04-18.md) |
 | rest_api           | rest API개념과 single model, 1:N API 구현                    | 2022.04.20 | [링크](./rest_api_22-04-20.md)           |
 | pjt08              | M:N API 구현, 쿼리셋 최적화, 영화정보 REST API 만들기        | 2022.04.22 | [링크](./pjt08_22-04-22.md)              |
+| api_server         | SOP, CORS, authentication과 authorization                    | 2022.05.16 | [링크](./api_server_22-05-16.md)         |
