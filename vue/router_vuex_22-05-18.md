@@ -142,7 +142,7 @@
 
 
 
-- Guard Clauses : Guard란 조건 분기에서 계속 실행되기 위해 true 여야 하는 boolean expression을 의미한다. false의 경우를 if 로 거르고 if절 후에 code depth 변화 없이 작성하는것들을 Guard Clauses라 한다.
+- Guard Clauses : Guard란 조건 분기에서 계속 실행되기 위해 true 여야 하는 boolean expression을 의미한다. if절에 return을 사용하고 else절을 없애 code depth 변화 없이 작성하는것들을 Guard Clauses라 한다.
 
   ```javascript
   if (guard) {
