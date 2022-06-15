@@ -18,7 +18,7 @@
 
 - querySelectorAll : 제공한 선택자와 일치하는 여러 element를 선택한다.
 
-- getElementByID(id)
+- getElementById(id)
 
   getElementsByTagName(name)
 
