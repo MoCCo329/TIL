@@ -22,3 +22,5 @@
 - Javascript
 - Vue
 - ssafy_1학기_pjt
+
+- 계절학기
