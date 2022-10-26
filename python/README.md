@@ -10,7 +10,7 @@
 
 
 
-### cf) Not classified yet
+### cf) Not classified Yet
 
 - jupyter notebook에서 m은 markdown, y는 python코드입력, a와 b는 각각 위 아래에 칸 생성, dd는 칸 삭제,  in은 실행횟수 out은 마지막 줄을 표현해 준다.
 - 코드 스타일 가이드 PEP8을 따라 같은사람이 짠 코드처럼 통일성을 갖추는게 좋다.
