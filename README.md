@@ -1,5 +1,8 @@
-| 폴더명 | 링크               |
-| ------ | ------------------ |
-| python | [python](./python) |
-| vue    | [vue](./vue)       |
+| 폴더명     | 링크                       |
+| ---------- | -------------------------- |
+| algorithm  | [algorithm](./algorithm)   |
+| python     | [python](./python)         |
+| javascript | [javascript](./javascript) |
+| vue        | [vue](./vue)               |
+| db         | [db](./db)                 |
 
