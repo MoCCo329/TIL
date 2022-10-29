@@ -8,4 +8,5 @@
 | django     | [django](./django)         |
 | vue        | [vue](./vue)               |
 | db         | [db](./db)                 |
+| nft        | [nft](./nft)               |
 
