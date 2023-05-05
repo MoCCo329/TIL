@@ -16,7 +16,79 @@
 
 
 
-### cf) Not Classified Yet
+- 내용 renewal 예정 (~ 23/07)
+
+<자료구조> (C나 Java로 다 직접 구현)
+
+자료구조는 기본적으로 메모리가 연결된 형태의 array 와 떨어져 있지만 참조값으로 연결된 방식으로 구현된다.
+
+List는 추상 개념(무엇인가 순서대로 들어있는 저장고가 있다) - STACK, QUEUE, DEQUEUE
+
+Tree - TRIE(접미사트리, 접미사 배열(맨버-마이어스))(알고리즘?), 이진탐색트리(TreeSet, TreeMap), HEAP, SegmentTree, sqrt decomposition, Binary Indexed Tree, BST, B tree, B+tree, ATL tree, RB tree
+
+Graph - adjList, adjMatrix
+
+Hash - HashSet, HashMap, channing, open addressing
+
+
+
+<알고리즘>
+
+기본 - 점근적표기법, N NP문제, 브루트포스, 그리디, 디바이드 퀀쿼, DP
+
+
+
+정렬(버블, 삽입, 선택, 병합, 퀵, 기수, 힙, 쉘, 카운트)
+
+
+
+BFS, DFS
+
+다익스트라, 벨만포드, 플루이드워셜
+
+프림, 크루스칼
+
+위상정렬
+
+단절점
+
+
+
+DP - tsp, knapsack
+
+
+
+문자열 패턴 매칭 - 카프라빈, KMP, 보이어 무어
+
+
+
+트리 - lca, 트리지름
+
+uf, rank-compression, path-compression
+
+
+
+binary search, Parametric search
+
+
+
+(순열과 조합 - 비트마스킹, 순열의 다음값구하기)
+
+Preprocessing - Prefix, Suffix sum
+
+Grid-compression
+
+LR technique
+
++1-1 Technique : 막대문제
+
+Two pointer
+
+
+
+
+
+### etc)
 
 - 표준 문자 코드
 
@@ -32,15 +104,6 @@
 
 
   - 인코딩 방식에는 UTF-8, UTF-16, UTF-32가 있다.
-
-
-
-- 양수, 음수 차이
-  - int(7//2) = 3, int(-7//2) = -4 가 된다(내림)
-  - ceil(-0.4) = 0 이 된다. 크거나 같은 최소 정수(올림)
-  - floor(-0.4) = -1 이 된다. 작거나 같은 정수 중 가장 큰 정수(내림)
-  - trunc(-0.4) = 0 이 된다. 소수를 제외하고 정수만 반환한다(버림)
-  - round(-0.5) = 0, round(-0.6) = -1 이 된다. 소수점 이하의 값이 0.5보다 크면 입력값보다 큰 정수 반환(반올림)
 
 - 표준 입출력 방법
 
